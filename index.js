@@ -1,59 +1,36 @@
-const btnAdauga = document.getElementById('btnAdauga');
-const btnGoleste = document.getElementById('btnGoleste');
-const txtItem = document.getElementById('txtItem');
-const txtFiltru = document.getElementById('txtFiltru');
-const lista = document.getElementById('lista');
+const inputBox = document.getElementById("input-box");
+const listContainer = document.getElementById("list-container");
 
-document.addEventListener('DOMContentLoaded' , onLoad);
-function onLoad(){
-    btnAdauga.addEventListener('click' , adaugaTask);
-    btnGoleste.addEventListener("click" , golesteLista);
-    lista.addEventListener("click" , onListClick);
-    txtFiltru.addEventListener("keyup", onKeyUp);
-}
-function adaugaTask(e){
-    if(!txtItem.value || txtItem.value==='"'){
-        alert('Nu se pot adauga task-uri goale!'); 
-        return;
-      }else{
-   
-        let el = document.createElement('li');
-        el.innerHTML = inputbox.value;
-        lista.appendChild(el);
+function addTask(){
+    if(inputBox.value === ''){
+        alert("you must write something!");
     }
-  
-}
-function golesteLista(e){
-    if(!confirm('Esti sigur ca vrei sa golesti lista?')){return;
+    else{
+        let li = document.createElement("li");
+        li.innerHTML = inputBox.value;
+        listContainer.appendChild(li);
+        let span = document.createElement("span");
+        span.innerHTML = "\u00d7";
+        li.appendChild(span);
     }
-    lista.innerHTML='';
+    inputBox.value = "";
+     saveData();
 }
-function onListClick(e){
-    let tg = e.target,
-        li = tg.closest('li');
-    if(tg.nodeName=='I'){
-       if(!confirm('Esti sigur(a) ca vrei sa stergi task-ul?')){ return;}
+listContainer.addEventListener("click", function(e){
+    if(e.target.tagName === "Li"){
+        e.target.classList.toggle("checked");
+         saveData();
+    }
+    else if(e.target.tagName === "span"){
+        e.target.parentElement.remove();
+         saveData();
+    }
+} , false);
 
-       li.remove();
-    }else{
-        const chk = li.querySelector('input[type="checkbox"]');
-        chk.checked = !chk.checked;
-    }
+
+function saveData(){
+    localStorage.setItem("data",listContainer.innerHTML);
 }
-let time;
-function onKeyUp(e){
-    clearTimeout(time);
-    time = setTimeout(onFilter(e),400);
-}
-function onFilter(e){
-    let filtru = e.target.value.toLowerCase();
-    let elemente = lista.querySelectorAll('li');
-    elemente.forEach{i=>{
-        const txt = i.children[i].textContent.toLowerCase();
-        if(txt.indexof(filtru)>-1){
-            i.style.display ="flex";
-        }else{
-            i.style.display ="none";
-        }
-    }};
+function showTask(){
+    listContainer.innerHTML = localStorage.getItem("data");
 }
