@@ -21,7 +21,7 @@ listContainer.addEventListener("click", function(e){
         e.target.classList.toggle("checked");
          saveData();
     }
-    else if(e.target.tagName === "span"){
+    else if(e.target.tagName === "SPAN"){
         e.target.parentElement.remove();
          saveData();
     }
@@ -34,3 +34,4 @@ function saveData(){
 function showTask(){
     listContainer.innerHTML = localStorage.getItem("data");
 }
+showTask();
