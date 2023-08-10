@@ -9,6 +9,7 @@
     min-height: 100vh;
     background: linear-gradient(135deg ,#153677,#4e085f);
     padding: 10px;
+    
 }
 .todo-app {
     width: 100%;
@@ -41,8 +42,10 @@ input{
     background:transparent;
     padding: 10px;
     font-weight: 14px;
+    
 }
 button{
+    
     border: none;
     outline: none;
     padding: 16px 50px;
